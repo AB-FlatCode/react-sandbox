@@ -1,10 +1,10 @@
 import React from 'react'
-import Final from './tutorial/11-react-router/final/index'
+/* import Final from './tutorial/11-react-router/final/index' */
+import Setup from './tutorial/4-forms/setup/1-controlled-inputs';
 function App() {
   return (
     <div className='container'>
-      <h2>Advanced Tutorial</h2>
-      <Final />
+      <Setup />
     </div>
   )
 }

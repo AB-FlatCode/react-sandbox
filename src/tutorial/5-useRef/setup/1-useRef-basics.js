@@ -1,11 +1,34 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from "react";
 
 // preserves value
 // DOES NOT trigger re-render
 // target DOM nodes/elements
 
 const UseRefBasics = () => {
-  return <h2>useRef</h2>;
+  const refContainer = useRef(null);
+  const divRefContainer = useRef(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(refContainer.current.value);
+    console.log(divRefContainer.current);
+  };
+
+  useEffect(() => {
+    refContainer.current.focus();
+  });
+
+  return (
+    <>
+      <form className="form" onSubmit={handleSubmit}>
+        <div>
+          <input type="text" ref={refContainer} />
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      <div ref={divRefContainer}></div>
+    </>
+  );
 };
 
 export default UseRefBasics;

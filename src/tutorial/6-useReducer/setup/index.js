@@ -1,24 +1,7 @@
 import React, { useState, useReducer } from "react";
 import Modal from "./Modal";
 import { data } from "../../../data";
-// reducer function
-
-const reducer = (state, action) => {
-  if (action.type === "ADD_ITEM") {
-    const newPeople = [...state.people, action.payload];
-    return {
-      ...state,
-      people: newPeople,
-      isModalOpen: true,
-      modalContent: "item added",
-    };
-  }
-
-  if (action.type === "NO_VALUE") {
-    return { ...state, isModalOpen: true, modalContent: "Required field!" };
-  }
-  throw new Error("no matching action types");
-};
+import { reducer } from "./reducer";
 
 const defaultState = {
   people: [],
@@ -41,9 +24,15 @@ const Index = () => {
     }
   };
 
+  const closeModal = () => {
+    dispatch({ type: "CLOSE_MODAL" });
+  };
+
   return (
     <>
-      {state.isModalOpen && <Modal modalContent={state.modalContent} />}
+      {state.isModalOpen && (
+        <Modal closeModal={closeModal} modalContent={state.modalContent} />
+      )}
       <form onSubmit={handleSubmit} className="form">
         <div>
           <input
@@ -59,6 +48,13 @@ const Index = () => {
           return (
             <div className="item" key={person.id}>
               <h3>{person.name}</h3>
+              <button
+                onClick={() =>
+                  dispatch({ type: "REMOVE_ITEM", payload: person.id })
+                }
+              >
+                Remove
+              </button>
             </div>
           );
         })}
